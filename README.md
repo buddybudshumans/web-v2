@@ -58,3 +58,51 @@ If you're looking to see what Anura APIs and features are supported in terbium, 
 - [Ryan](https://github.com/MovByte)
 
 Licensed under the [**AGPL3 License**](https://www.gnu.org/licenses/agpl-3.0.en.html)
+
+## Hosting / Deploying (GitHub Pages)
+
+This repository includes a GitHub Actions workflow that automatically builds and deploys the production `dist/` output to GitHub Pages when you push to `main`.
+
+Quick checklist before deploying:
+
+- Ensure `vite.config.ts` has `base` set to your repo path if you're hosting as a project site, for example:
+
+```ts
+// vite.config.ts
+export default defineConfig({
+    base: '/web-v2/', // change if your repo name or hosting path differs
+    // ...
+})
+```
+
+- Verify `public/404.html` exists (the project already contains one) so client-side routing works on Pages.
+
+How the automatic deploy works:
+
+- The workflow file is at `.github/workflows/pages.yml`.
+- On push to `main` the action installs dependencies, runs `npm run build`, uploads `dist/` and publishes it to GitHub Pages.
+
+To test locally before pushing:
+
+```bash
+# install deps
+npm install
+
+# build production assets
+npm run build
+
+# preview the built site
+npm run preview
+# or
+npx serve dist
+```
+
+To trigger the deploy (push to main):
+
+```bash
+git add .
+git commit -m "chore: prepare site for GitHub Pages"
+git push origin main
+```
+
+If you'd like a one-shot deploy (instead of Actions) we can add `gh-pages` scripts and a `deploy` command — tell me if you prefer that.

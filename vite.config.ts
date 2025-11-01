@@ -15,6 +15,10 @@ config.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	// NOTE: this project is commonly hosted as a GitHub project page.
+	// If you're publishing to https://buddybudshumans.github.io/web-v2/, use the repo base below.
+	// If you will publish at a different path (or a user/org page), adjust or remove `base`.
+	base: "/web-v2/",
 	plugins: [
 		react(),
 		viteStaticCopy({
